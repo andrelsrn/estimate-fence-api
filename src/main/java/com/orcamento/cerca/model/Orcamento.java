@@ -31,6 +31,7 @@ public class Orcamento implements Serializable {
     public Orcamento() {
     }
 
+
     public Long getId() {
         return id;
     }
