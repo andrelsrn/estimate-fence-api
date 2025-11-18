@@ -2,18 +2,20 @@ package com.orcamento.cerca.service;
 
 import com.orcamento.cerca.DTO.ItemRequestDTO;
 import com.orcamento.cerca.DTO.OrcamentoRequestDTO;
+import com.orcamento.cerca.DTO.OrcamentoSummaryDTO;
 import com.orcamento.cerca.model.Cliente;
 import com.orcamento.cerca.model.ItemOrcamento;
 import com.orcamento.cerca.model.Orcamento;
-import com.orcamento.cerca.repository.ClienteRepository;
 import com.orcamento.cerca.repository.OrcamentoRepository;
 import com.orcamento.cerca.repository.TabelaPrecoRepository;
 import com.orcamento.cerca.service.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrcamentoService {
@@ -87,5 +89,20 @@ public class OrcamentoService {
         return orcamentoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
+
+    public List<OrcamentoSummaryDTO> findWithLimit(int limit) {
+        PageRequest pageRequest = PageRequest.of(
+                0,
+                limit,
+                org.springframework.data.domain.Sort.by("dataCadastro").descending()
+        );
+
+        List<Orcamento> list = orcamentoRepository.findAll(pageRequest).getContent();
+
+        return list.stream()
+                .map(OrcamentoSummaryDTO::new)
+                .collect(Collectors.toList());
+    }
+
 
 }
