@@ -20,6 +20,7 @@ public class TabelaPreco implements Serializable {
     private String cor;
     private String material;
 
+
     private BigDecimal precoPorMetroLinear;
 
     public TabelaPreco() {

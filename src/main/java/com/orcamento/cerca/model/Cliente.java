@@ -30,6 +30,11 @@ public class Cliente implements Serializable {
         this.orcamentos = new ArrayList<>();
     }
 
+    public void addOrcamento(Orcamento orcamento) {
+        this.orcamentos.add(orcamento);
+        orcamento.setCliente(this);
+    }
+
     public Long getId() {
         return id;
     }
