@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TabelaPrecoRepository extends JpaRepository<TabelaPreco, Long> {
 
-    Optional<TabelaPreco> findByTamanhoPainelAfterAndCorAndMaterial(String tamanhoPainel, String cor, String material);
+    Optional<TabelaPreco> findByTamanhoPainelAndCorAndMaterial(String tamanhoPainel, String cor, String material);
 
 }

@@ -8,6 +8,7 @@ import com.orcamento.cerca.model.Orcamento;
 import com.orcamento.cerca.repository.ClienteRepository;
 import com.orcamento.cerca.repository.OrcamentoRepository;
 import com.orcamento.cerca.repository.TabelaPrecoRepository;
+import com.orcamento.cerca.service.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class OrcamentoService {
     }
 
     @Transactional
-    public Orcamento calcularESalvar(OrcamentoRequestDTO dto){
+    public Orcamento calcularESalvar(OrcamentoRequestDTO dto) {
 
 
         Cliente cliente = clienteService.buscarOuCriar(dto.clienteNome(), dto.clienteEmail());
@@ -45,10 +46,14 @@ public class OrcamentoService {
         for (ItemRequestDTO itemDto : dto.itens()) {
 
 
-            var tabelaPreco = tabelaPrecoRepository.findByTamanhoPainelAfterAndCorAndMaterial(
-                    itemDto.tamanhoPainel(),
-                    itemDto.cor(),
-                    itemDto.materialEscolhido()
+            String corNormalizada = itemDto.cor().toLowerCase();
+            String materialNormalizado = itemDto.materialEscolhido().toLowerCase();
+            String tamanhoNormalizado = itemDto.tamanhoPainel().toLowerCase();
+
+            var tabelaPreco = tabelaPrecoRepository.findByTamanhoPainelAndCorAndMaterial(
+                    tamanhoNormalizado,
+                    corNormalizada,
+                    materialNormalizado
             ).orElseThrow(() -> new RuntimeException("Tabela de Preço não encontrada para um dos itens fornecidos."));
 
 
@@ -77,4 +82,10 @@ public class OrcamentoService {
 
         return orcamentoRepository.save(orcamento);
     }
+
+    public Orcamento buscarPorId(Long id) {
+        return orcamentoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
 }

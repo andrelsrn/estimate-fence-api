@@ -1,5 +1,6 @@
 package com.orcamento.cerca.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class Cliente implements Serializable {
     private String nome;
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Orcamento> orcamentos;
 

@@ -27,7 +27,7 @@ public class TestConfig implements CommandLineRunner {
 
     public void run(String... args) throws Exception {
 
-        Cliente c1 = new Cliente(null, "Maria Silva", "maria@gmail.com");
+     /*   Cliente c1 = new Cliente(null, "Maria Silva", "maria@gmail.com");
         Cliente c2 = new Cliente(null, "João Souza", "joaozinho@gmail.com");
 
         clienteRepository.saveAll(Arrays.asList(c1, c2));
@@ -58,6 +58,6 @@ public class TestConfig implements CommandLineRunner {
         orcamentoRepository.save(o1);
 
     }
-
+*/}
 
 }
