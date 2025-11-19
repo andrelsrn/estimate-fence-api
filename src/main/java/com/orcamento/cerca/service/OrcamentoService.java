@@ -9,6 +9,7 @@ import com.orcamento.cerca.model.Orcamento;
 import com.orcamento.cerca.repository.OrcamentoRepository;
 import com.orcamento.cerca.repository.TabelaPrecoRepository;
 import com.orcamento.cerca.service.exceptions.ResourceNotFoundException;
+import com.orcamento.cerca.service.exceptions.TabelaPrecoNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,11 @@ public class OrcamentoService {
                     tamanhoNormalizado,
                     corNormalizada,
                     materialNormalizado
-            ).orElseThrow(() -> new RuntimeException("Tabela de Preço não encontrada para um dos itens fornecidos."));
+            ).orElseThrow(() -> new TabelaPrecoNotFoundException(
+                    corNormalizada,
+                    materialNormalizado,
+                    tamanhoNormalizado
+            ));
 
 
             var comprimento = BigDecimal.valueOf(itemDto.totalLinear());
