@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 public class Cliente implements Serializable {
-    public static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Cliente implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Orcamento> orcamentos;
+    private List<Orcamento> orcamentos = new ArrayList<>();
 
     public Cliente() {
     }
@@ -29,7 +29,6 @@ public class Cliente implements Serializable {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.orcamentos = new ArrayList<>();
     }
 
     public void addOrcamento(Orcamento orcamento) {
