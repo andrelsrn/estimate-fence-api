@@ -24,7 +24,6 @@ public class ItemOrcamento implements Serializable {
     private Integer portaoQuantidade;
     private BigDecimal valorTotal;
 
-    private BigDecimal precoPorMetroLinear;
 
     public ItemOrcamento() {
     }

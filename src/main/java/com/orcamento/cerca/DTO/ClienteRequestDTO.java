@@ -8,4 +8,10 @@ public record ClienteRequestDTO(
 
         @Schema(description = "E-mail do cliente", example = "joao@gmail.com")
         String email
-) {}
+) {
+
+    public ClienteRequestDTO {
+        nome = nome != null ? nome.trim() : null;
+        email = email != null ? email.trim() : null;
+}
+}

@@ -1,47 +1,37 @@
 package com.orcamento.cerca.DTO;
 
 import com.orcamento.cerca.model.Orcamento;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class OrcamentoSummaryDTO {
+@Schema(description = "Resumo de orçamento usado em listagens")
+public record OrcamentoSummaryDTO(
 
-    private Long id;
-    private BigDecimal valorTotal;
-    private LocalDateTime dataCadastro;
-    private Long clienteId;
-    private String clienteNome;
+        @Schema(description = "ID do orçamento", example = "15")
+        Long id,
 
+        @Schema(description = "Nome do cliente", example = "João Silva")
+        String cliente,
 
-    public OrcamentoSummaryDTO(Orcamento entity) {
-        this.id = entity.getId();
-        this.valorTotal = entity.getValorTotal();
-        this.dataCadastro = entity.getDataCadastro();
+        @Schema(description = "Valor total do orçamento", example = "1250.50")
+        BigDecimal valorTotal,
 
+        @Schema(description = "Data de criação", example = "2025-02-18T10:30:00")
+        LocalDateTime dataCadastro,
 
-        if (entity.getCliente() != null) {
-            this.clienteId = entity.getCliente().getId();
-            this.clienteNome = entity.getCliente().getNome();
-        }
-    }
+        @Schema(description = "Quantidade total de itens", example = "3")
+        Integer quantidadeItens
+) {
 
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public Long getClienteId() {
-        return clienteId;
-    }
-
-    public String getClienteNome() {
-        return clienteNome;
+    public OrcamentoSummaryDTO(Orcamento o) {
+        this(
+                o.getId(),
+                o.getCliente().getNome(),
+                o.getValorTotal(),
+                o.getDataCadastro(),
+                o.getItens().size()
+        );
     }
 }

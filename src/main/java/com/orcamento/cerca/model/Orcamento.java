@@ -31,12 +31,11 @@ public class Orcamento implements Serializable {
     public Orcamento() {
     }
 
-    public Orcamento(Long id, BigDecimal valorTotal, LocalDateTime dataCadastro, Cliente cliente, List<ItemOrcamento> itens) {
-        this.id = id;
+    public Orcamento( BigDecimal valorTotal, LocalDateTime dataCadastro, Cliente cliente) {
         this.valorTotal = valorTotal;
         this.dataCadastro = dataCadastro;
         this.cliente = cliente;
-        this.itens = itens;
+
     }
 
     public void addItem(ItemOrcamento item) {

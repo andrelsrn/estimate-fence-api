@@ -12,4 +12,14 @@ public record ClienteResponseDTO(
 
         @Schema(description = "E-mail do cliente", example = "joao@gmail.com")
         String email
-) {}
+) {
+    public ClienteResponseDTO(com.orcamento.cerca.model.Cliente cliente) {
+        this(
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getEmail()
+        );
+    }
+}
+
+

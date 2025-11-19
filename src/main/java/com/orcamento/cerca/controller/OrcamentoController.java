@@ -1,19 +1,20 @@
 package com.orcamento.cerca.controller;
 
 import com.orcamento.cerca.DTO.OrcamentoRequestDTO;
+import com.orcamento.cerca.DTO.OrcamentoResponseDTO;
 import com.orcamento.cerca.DTO.OrcamentoSummaryDTO;
-import com.orcamento.cerca.model.Orcamento;
 import com.orcamento.cerca.service.OrcamentoService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estimates" )
+@RequestMapping("/orcamentos")
+@Tag(name = "Orçamentos", description = "Gerenciamento de orçamentos e cálculo total")
 public class OrcamentoController {
 
     private final OrcamentoService orcamentoService;
@@ -22,34 +23,45 @@ public class OrcamentoController {
         this.orcamentoService = orcamentoService;
     }
 
+    @Operation(
+            summary = "Criar novo orçamento",
+            description = "Calcula automaticamente o valor total do orçamento e salva no banco."
+    )
     @PostMapping
-    public ResponseEntity<Orcamento> criarOrcamento(@RequestBody OrcamentoRequestDTO dto) {
-        Orcamento orcamento = orcamentoService.calcularESalvar(dto);
-        return ResponseEntity.status(201).body(orcamento);
+    public ResponseEntity<OrcamentoResponseDTO> criar(@RequestBody OrcamentoRequestDTO dto) {
+        OrcamentoResponseDTO created = orcamentoService.calcularESalvar(dto);
+        URI uri = URI.create("/orcamentos/" + created.id());
+        return ResponseEntity.created(uri).body(created);
     }
 
-    @GetMapping("/{id}" )
-    public ResponseEntity<Orcamento> buscarPorId(@PathVariable Long id) {
-        Orcamento orcamento = orcamentoService.buscarPorId(id);
-        return ResponseEntity.ok(orcamento);
+    @Operation(
+            summary = "Buscar orçamento por ID",
+            description = "Retorna um orçamento completo usando seu identificador."
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<OrcamentoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(orcamentoService.buscarPorId(id));
     }
 
-
-    private static final int MAX_LIMIT = 50;
-
+    @Operation(
+            summary = "Listar orçamentos",
+            description = "Retorna todos os orçamentos ou uma quantidade limitada usando o parâmetro `limit`."
+    )
     @GetMapping
-    public ResponseEntity<List<OrcamentoSummaryDTO>> findAll(
-            @RequestParam(defaultValue = "20") int limit) {
-
-
-        int effectiveLimit = Math.min(limit, MAX_LIMIT);
-
-        List<OrcamentoSummaryDTO> list = orcamentoService.findWithLimit(effectiveLimit);
-
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<OrcamentoSummaryDTO>> listarTodos(@RequestParam(name = "limit", required = false) Integer limit) {
+        if (limit != null) {
+            return ResponseEntity.ok(orcamentoService.findWithLimit(limit));
+        }
+        return ResponseEntity.ok(orcamentoService.listarTodos());
     }
 
-
-
-
+    @Operation(
+            summary = "Excluir orçamento",
+            description = "Remove um orçamento definitivamente do sistema."
+    )
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        orcamentoService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
