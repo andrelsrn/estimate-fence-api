@@ -23,3 +23,7 @@ VALUES ('5x6', 'preto', 28.00, 'aluminio');
 -- Painel 6x6 Aluminio -> R$ 30.00 por metro linear
 INSERT INTO tabela_preco (tamanho_painel, cor, preco_por_metro_linear, material)
 VALUES ('6x6', 'preto', 30.00, 'aluminio');
+
+--Cria usuario admim..
+INSERT INTO usuario (username, password, role)
+VALUES ('admin', '1234', 'ADMIN');
