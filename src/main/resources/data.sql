@@ -25,5 +25,10 @@ INSERT INTO tabela_preco (tamanho_painel, cor, preco_por_metro_linear, material)
 VALUES ('6x6', 'preto', 30.00, 'aluminio');
 
 --Cria usuario admim..
+DELETE FROM usuario WHERE username='admin';
+
 INSERT INTO usuario (username, password, role)
-VALUES ('admin', '1234', 'ADMIN');
+VALUES ('admin', '$2a$10$UAxmgmfDIKLgSpZvC2RPlOhrhHkYwRfEboeJRoAeBBIPcn.pngLZC', 'ADMIN');
+
+
+

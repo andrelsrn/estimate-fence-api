@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // Se não tiver header, só segue a requisição SEM VALIDAR NADA
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -55,8 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         } catch (Exception e) {
-            // NÃO lança erro — só deixa seguir sem autenticar
-            // Isso evita quebrar o Swagger
+
         }
 
         filterChain.doFilter(request, response);
