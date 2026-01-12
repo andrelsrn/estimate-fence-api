@@ -14,4 +14,9 @@ public record OrcamentoRequestDTO(
 
         @Schema(description = "Lista de itens do orçamento")
         List<ItemRequestDTO> itens
-) {}
+) {
+    public OrcamentoRequestDTO {
+        clienteNome = clienteNome != null ? clienteNome.trim() : null;
+        clienteEmail = clienteEmail != null ? clienteEmail.trim() : null;
+    }
+}
