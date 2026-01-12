@@ -21,6 +21,10 @@ public class UsuarioService {
     }
 
     public Usuario salvar(RegisterRequest request) {
+        if (usuarioReposiroty.findByUsername(request.username()).isPresent()) {
+            throw new RuntimeException("Usuário já existe");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setUsername(request.username());
         usuario.setPassword(passwordEncoder.encode(request.password()));
