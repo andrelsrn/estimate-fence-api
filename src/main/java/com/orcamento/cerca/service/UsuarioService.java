@@ -1,5 +1,6 @@
 package com.orcamento.cerca.service;
 
+import com.orcamento.cerca.DTO.RegisterRequest;
 import com.orcamento.cerca.repository.UsuarioReposiroty;
 import com.orcamento.cerca.model.Usuario;
 import com.orcamento.cerca.security.JwtUtil;
@@ -19,8 +20,12 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario salvar(Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+    public Usuario salvar(RegisterRequest request) {
+        Usuario usuario = new Usuario();
+        usuario.setUsername(request.username());
+        usuario.setPassword(passwordEncoder.encode(request.password()));
+        usuario.setRole("USER");
+
         return usuarioReposiroty.save(usuario);
     }
 
