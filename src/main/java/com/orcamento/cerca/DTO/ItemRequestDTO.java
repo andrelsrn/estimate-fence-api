@@ -22,4 +22,10 @@ public record ItemRequestDTO(
 
         @Schema(description = "Quantidade de portões", example = "1")
         Integer portaoQuantidade
-) {}
+) {
+    public ItemRequestDTO {
+        tamanhoPainel = tamanhoPainel != null ? tamanhoPainel.trim() : null;
+        cor = cor != null ? cor.trim() : null;
+        materialEscolhido = materialEscolhido != null ? materialEscolhido.trim() : null;
+    }
+}
