@@ -43,6 +43,6 @@ public class UsuarioService {
             throw new CredenciaisInvalidasException("Senha inválida");
         }
 
-        return jwtUtil.generateToken(username);
+        return jwtUtil.generateToken(username, usuario.getRole());
     }
 }
