@@ -2,7 +2,6 @@ package com.orcamento.cerca.controller.exceptions;
 
 import java.time.Instant;
 
-// Use records ou getters/setters se preferir
 public class StandardError {
 
     private Instant timestamp;

@@ -48,8 +48,8 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // CLIENTE endpoints
-                        .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/clientes/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/clientes" , "/clientes/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/clientes").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/clientes/**").hasRole("ADMIN")  // só ADMIN altera
                         .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN") // só ADMIN deleta
 
