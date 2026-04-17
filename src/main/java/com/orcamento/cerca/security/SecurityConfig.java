@@ -54,8 +54,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN") // só ADMIN deleta
 
                         // ORÇAMENTO endpoints
-                        .requestMatchers(HttpMethod.GET, "/orcamentos/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/orcamentos/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/orcamentos", "/orcamentos/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/orcamentos").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/orcamentos/**").hasRole("ADMIN") // só ADMIN deleta
 
                         .anyRequest().authenticated()
