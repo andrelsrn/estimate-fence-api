@@ -87,16 +87,16 @@ public class OrcamentoService {
         return new OrcamentoResponseDTO(o);
     }
 
-    public List<OrcamentoSummaryDTO> findWithLimit(int limit) {
-        PageRequest pageRequest = PageRequest.of(0, limit, Sort.by("dataCadastro").descending());
-        List<Orcamento> list = orcamentoRepository.findAll(pageRequest).getContent();
-        return list.stream().map(OrcamentoSummaryDTO::new).collect(Collectors.toList());
+    public List<Orcamento> findWithLimit(Integer limit) {
+        return orcamentoRepository.findAll(
+                PageRequest.of(0, limit, Sort.by("dataCadastro").descending())
+        ).getContent();
     }
 
-    public List<OrcamentoSummaryDTO> listarTodos() {
-        return orcamentoRepository.findAll(Sort.by("dataCadastro").descending())
-                .stream().map(OrcamentoSummaryDTO::new).collect(Collectors.toList());
+    public List<Orcamento> listarTodos() {
+        return orcamentoRepository.findAll(Sort.by("dataCadastro").descending());
     }
+
 
     @Transactional
     public void deletar(Long id) {

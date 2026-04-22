@@ -3,6 +3,7 @@ package com.orcamento.cerca.controller;
 import com.orcamento.cerca.DTO.OrcamentoRequestDTO;
 import com.orcamento.cerca.DTO.OrcamentoResponseDTO;
 import com.orcamento.cerca.DTO.OrcamentoSummaryDTO;
+import com.orcamento.cerca.model.Orcamento;
 import com.orcamento.cerca.service.OrcamentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,7 +49,7 @@ public class OrcamentoController {
             description = "Retorna todos os orçamentos ou uma quantidade limitada usando o parâmetro `limit`."
     )
     @GetMapping
-    public ResponseEntity<List<OrcamentoSummaryDTO>> listarTodos(@RequestParam(name = "limit", required = false) Integer limit) {
+    public ResponseEntity<List<Orcamento>> listarTodos(@RequestParam(name = "limit", required = false) Integer limit) {
         if (limit != null) {
             return ResponseEntity.ok(orcamentoService.findWithLimit(limit));
         }
