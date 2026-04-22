@@ -77,5 +77,7 @@ public class Orcamento implements Serializable {
         return itens;
     }
 
-
+    public void setItens(List<ItemOrcamento> itens) {
+        this.itens = itens;
+    }
 }
