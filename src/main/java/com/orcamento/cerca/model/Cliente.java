@@ -35,6 +35,10 @@ public class Cliente implements Serializable {
         this.endereco = endereco;
     }
 
+    public Cliente() {
+
+    }
+
     public void addOrcamento(Orcamento orcamento) {
         this.orcamentos.add(orcamento);
         orcamento.setCliente(this);
