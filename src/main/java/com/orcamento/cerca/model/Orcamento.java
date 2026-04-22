@@ -23,7 +23,7 @@ public class Orcamento implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "orcamento_id")
     private List<ItemOrcamento> itens = new ArrayList<>();
 
