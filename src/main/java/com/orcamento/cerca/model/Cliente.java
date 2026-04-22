@@ -17,18 +17,22 @@ public class Cliente implements Serializable {
     private Long id;
     private String nome;
     private String email;
+    private String telefone;
+    private String endereco;
 
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Orcamento> orcamentos = new ArrayList<>();
 
-    public Cliente() {
+    public Cliente(Object o, String clienteTesteGet, String mail) {
     }
 
-    public Cliente(Long id, String nome, String email) {
+    public Cliente(Long id, String nome, String email, String telefone, String endereco) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.telefone = telefone;
+        this.endereco = endereco;
     }
 
     public void addOrcamento(Orcamento orcamento) {
@@ -59,6 +63,14 @@ public class Cliente implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getTelefone() {return telefone; }
+
+    public void setTelefone(String telefone) {this.telefone = telefone; }
+
+    public String getEndereco() {return endereco; }
+
+    public void setEndereco(String endereco) {this.endereco = endereco;}
 
     public List<Orcamento> getOrcamentos() {
         return orcamentos;

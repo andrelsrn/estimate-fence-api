@@ -12,11 +12,20 @@ public record OrcamentoRequestDTO(
         @Schema(description = "E-mail do cliente", example = "joao@email.com")
         String clienteEmail,
 
+        @Schema(description = "Telefone do cliente", example = "(11) 98765-4321")
+        String clienteTelefone,
+
+        @Schema(description = "Endereço do cliente", example = "Rua das Flores, 123, São Paulo - SP")
+        String clienteEndereco,
+
+
         @Schema(description = "Lista de itens do orçamento")
         List<ItemRequestDTO> itens
 ) {
     public OrcamentoRequestDTO {
         clienteNome = clienteNome != null ? clienteNome.trim() : null;
         clienteEmail = clienteEmail != null ? clienteEmail.trim() : null;
+        clienteTelefone = clienteTelefone != null ? clienteTelefone.trim() : null;
+        clienteEndereco = clienteEndereco != null ? clienteEndereco.trim() : null;
     }
 }

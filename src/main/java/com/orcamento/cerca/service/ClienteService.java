@@ -20,28 +20,28 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente buscarOuCriar(String nome, String email) {
+    public Cliente buscarOuCriar(String nome, String email, String telefone, String endereco) {
         return clienteRepository.findByEmail(email)
-                .orElseGet(() -> clienteRepository.save(new Cliente(null, nome, email)));
+                .orElseGet(() -> clienteRepository.save(new Cliente(null, nome, email,telefone, endereco)));
     }
 
 
     @Transactional
     public ClienteResponseDTO criar(ClienteRequestDTO dto) {
-        Cliente cliente = new Cliente(null, dto.nome(), dto.email());
+        Cliente cliente = new Cliente(null, dto.nome(), dto.email(), dto.telefone(), dto.endereco());
         clienteRepository.save(cliente);
-        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail());
+        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getEndereco());
     }
 
     public ClienteResponseDTO buscarPorId(Long id) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail());
+        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getEndereco());
     }
 
     public List<ClienteResponseDTO> listarTodos() {
         return clienteRepository.findAll().stream()
-                .map(c -> new ClienteResponseDTO(c.getId(), c.getNome(), c.getEmail()))
+                .map(c -> new ClienteResponseDTO(c.getId(), c.getNome(), c.getEmail(), c.getTelefone(), c.getEndereco()))
                 .toList();
     }
 
@@ -53,7 +53,7 @@ public class ClienteService {
         cliente.setNome(dto.nome());
         cliente.setEmail(dto.email());
 
-        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail());
+        return new ClienteResponseDTO(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getTelefone(), cliente.getEndereco());
     }
 
 

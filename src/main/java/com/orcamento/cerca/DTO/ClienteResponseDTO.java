@@ -11,13 +11,21 @@ public record ClienteResponseDTO(
         String nome,
 
         @Schema(description = "E-mail do cliente", example = "joao@gmail.com")
-        String email
+        String email,
+
+        @Schema(description = "Telefone do cliente", example = "(234) 352-4155")
+        String telefone,
+
+        @Schema(description = "Endereço do cliente", example = "35 Proctor St, Salem - MA, 01970")
+        String endereco
 ) {
     public ClienteResponseDTO(com.orcamento.cerca.model.Cliente cliente) {
         this(
                 cliente.getId(),
                 cliente.getNome(),
-                cliente.getEmail()
+                cliente.getEmail(),
+                cliente.getTelefone(),
+                cliente.getEndereco()
         );
     }
 }

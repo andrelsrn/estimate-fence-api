@@ -48,7 +48,7 @@ class OrcamentoControllerIntegrationTest {
         orcamentoRepository.deleteAll();
         clienteRepository.deleteAll();
 
-        Cliente cliente = new Cliente(null, "Cliente Teste GET", "teste.get@api.com");
+        Cliente cliente = new Cliente(null, "Cliente Teste GET", "teste.get@api.com", "123456789", "Rua Teste, 123");
         Cliente clienteSalvo = clienteRepository.save(cliente);
 
         Orcamento orcamento = new Orcamento();
@@ -74,6 +74,8 @@ class OrcamentoControllerIntegrationTest {
         OrcamentoRequestDTO requestDTO = new OrcamentoRequestDTO(
                 "Cliente POST",
                 "cliente.post@api.com",
+                "987654321",
+                "Rua POST, 456",
                 List.of(item1, item2)
         );
 

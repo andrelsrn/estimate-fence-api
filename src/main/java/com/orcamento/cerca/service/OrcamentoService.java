@@ -40,7 +40,7 @@ public class OrcamentoService {
     @Transactional
     public OrcamentoResponseDTO calcularESalvar(OrcamentoRequestDTO dto) {
 
-        Cliente cliente = clienteService.buscarOuCriar(dto.clienteNome(), dto.clienteEmail());
+        Cliente cliente = clienteService.buscarOuCriar(dto.clienteNome(), dto.clienteEmail(), dto.clienteTelefone(), dto.clienteEndereco());
 
         Orcamento orcamento = new Orcamento();
         orcamento.setCliente(cliente);
