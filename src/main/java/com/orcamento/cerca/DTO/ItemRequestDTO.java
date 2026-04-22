@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Item individual do orçamento")
 public record ItemRequestDTO(
 
-        @Schema(description = "Tamanho do painel", example = "2m")
+        @Schema(description = "Tamanho do painel", example = "6x6 ou 6x8")
         String tamanhoPainel,
 
         @Schema(description = "Cor do painel", example = "branco")

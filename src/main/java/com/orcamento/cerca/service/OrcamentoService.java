@@ -36,9 +36,7 @@ public class OrcamentoService {
         this.clienteService = clienteService;
     }
 
-    /**
-     * Calcula os itens, cria cliente quando necessário e salva o orçamento.
-     */
+
     @Transactional
     public OrcamentoResponseDTO calcularESalvar(OrcamentoRequestDTO dto) {
 
